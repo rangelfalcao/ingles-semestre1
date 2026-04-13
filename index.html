@@ -1075,13 +1075,11 @@ function renderizarQuestao() {
 function responderMultiple(idx) {
   respostas[questaoAtual] = idx;
   renderizarQuestao();
-  avancarSeNaoUltima();
 }
 
 function responderVF(val) {
   respostas[questaoAtual] = val;
   renderizarQuestao();
-  avancarSeNaoUltima();
 }
 
 function responderFillin() {
@@ -1092,16 +1090,6 @@ function responderFillin() {
   var correto = resposta.toLowerCase().replace(/['']/g, "'") === q.answer.toLowerCase().replace(/['']/g, "'");
   respostas[questaoAtual] = correto ? '__correct__' : resposta;
   renderizarQuestao();
-  avancarSeNaoUltima();
-}
-
-function avancarSeNaoUltima() {
-  if (questaoAtual < 29) {
-    setTimeout(function() { navegarQuestao(1); }, 1200);
-  } else {
-    document.getElementById('btn-proximo').disabled = false;
-    document.getElementById('btn-proximo').textContent = 'Ver Resultado ▶';
-  }
 }
 
 function mostrarFeedback(q) {
