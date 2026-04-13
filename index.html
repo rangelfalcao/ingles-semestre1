@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulado de Inglês — 1º Semestre</title>
+<style>
+  :root {
+    --azul: #3A8DDA;
+    --azul-claro: #5BA8F0;
+    --verde: #3BAD6A;
+    --verde-claro: #5ED18B;
+    --roxo: #8B5CF6;
+    --roxo-claro: #A78BFA;
+    --amarelo: #F5C518;
+    --laranja: #F0833A;
+    --rosa: #E879A8;
+    --branco: #FFFFFF;
+    --fundo: #EEF6FF;
+    --cinza: #6B7A8D;
+    --texto: #1E3A5F;
+    --texto-suave: #4A6080;
+    --borda: #C8DFF5;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(160deg, #DCF0FF 0%, #EAF3FF 40%, #D8F5EC 100%);
+    min-height: 100vh;
+    color: var(--texto);
+  }
+
+  /* ========== TELA INICIAL ========== */
+  #tela-inicio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px 20px;
+  }
+
+  .bandeira-topo {
+    font-size: 2.8em;
+    margin-bottom: 8px;
+    letter-spacing: 6px;
+  }
+
+  .titulo-principal {
+    font-size: 2.2em;
+    color: var(--azul);
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    text-shadow: 1px 2px 6px rgba(58,141,218,0.2);
+  }
+
+  .subtitulo {
+    font-size: 1em;
+    color: var(--texto-suave);
+    text-align: center;
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+  }
+
+  .cards-info {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 26px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .card-info {
+    background: rgba(255,255,255,0.8);
+    border: 2px solid var(--borda);
+    border-radius: 16px;
+    padding: 14px 22px;
+    text-align: center;
+    min-width: 100px;
+    box-shadow: 0 3px 12px rgba(58,141,218,0.12);
+  }
+
+  .card-info .icon { font-size: 1.8em; margin-bottom: 5px; }
+  .card-info .valor { font-size: 1.4em; font-weight: 900; color: var(--azul); }
+  .card-info .label { font-size: 0.78em; color: var(--cinza); margin-top: 2px; }
+
+  .video-chamada {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(255,255,255,0.75);
+    border-left: 5px solid var(--roxo);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin: 0 auto 14px auto;
+    max-width: 480px;
+    width: 100%;
+    text-align: left;
+  }
+
+  .video-chamada-icone { font-size: 2rem; flex-shrink: 0; margin-top: 2px; }
+
+  .video-chamada-titulo {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--roxo);
+    margin-bottom: 5px;
+  }
+
+  .video-chamada-sub {
+    font-size: 0.87rem;
+    color: var(--texto-suave);
+    line-height: 1.5;
+  }
+
+  .video-destaque {
+    position: relative;
+    display: block;
+    border-radius: 18px;
+    overflow: hidden;
+    margin: 0 auto 28px auto;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 6px 24px rgba(58,141,218,0.25);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .video-destaque img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    transition: transform 0.3s;
+  }
+
+  .video-destaque:hover img { transform: scale(1.03); }
+
+  .video-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70px;
+    height: 70px;
+    background: rgba(180, 0, 0, 0.85);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    transition: transform 0.2s, background 0.2s;
+    padding-left: 5px;
+  }
+
+  .video-destaque:hover .video-play-btn {
+    transform: translate(-50%, -50%) scale(1.15);
+    background: rgba(200, 0, 0, 1);
+  }
+
+  .btn-video { display: none; }
+
+  .btn-iniciar {
+    background: linear-gradient(135deg, var(--roxo), var(--azul));
+    color: #fff;
+    border: none;
+    padding: 18px 52px;
+    font-size: 1.25em;
+    font-weight: 900;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 22px rgba(139,92,246,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .btn-iniciar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(139,92,246,0.55);
+  }
+
+  /* ========== TELA QUIZ ========== */
+  #tela-quiz { display: none; min-height: 100vh; padding: 14px; }
+
+  .quiz-header {
+    background: rgba(255,255,255,0.85);
+    border-radius: 16px;
+    padding: 12px 18px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    border: 1px solid var(--borda);
+    box-shadow: 0 2px 10px rgba(58,141,218,0.1);
+  }
+
+  .quiz-titulo { color: var(--azul); font-size: 0.95em; font-weight: 800; }
+
+  .timer {
+    background: rgba(255,255,255,0.9);
+    color: var(--texto);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 1.05em;
+    font-weight: 800;
+    border: 2px solid var(--borda);
+    min-width: 88px;
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .timer.aviso { background: rgba(245,197,24,0.25); color: #7a5500; border-color: var(--amarelo); }
+  .timer.perigo { background: rgba(240,131,58,0.3); color: #8b2000; border-color: var(--laranja); animation: piscar 1s infinite; }
+  @keyframes piscar { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .progresso-container {
+    background: rgba(255,255,255,0.85);
+    border-radius: 14px;
+    padding: 10px 16px;
+    margin-bottom: 14px;
+    border: 1px solid var(--borda);
+    box-shadow: 0 2px 10px rgba(58,141,218,0.08);
+  }
+
+  .progresso-label {
+    color: var(--cinza);
+    font-size: 0.82em;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+  }
+
+  .barra-externa {
+    background: rgba(0,0,0,0.07);
+    border-radius: 10px;
+    height: 12px;
+    overflow: hidden;
+    border: 1px solid var(--borda);
+  }
+
+  .barra-interna {
+    height: 100%;
+    background: linear-gradient(90deg, var(--roxo) 0%, var(--azul) 60%, var(--azul-claro) 100%);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+  }
+
+  .card-questao {
+    background: rgba(255,255,255,0.9);
+    border-radius: 20px;
+    padding: 26px;
+    margin-bottom: 14px;
+    box-shadow: 0 5px 20px rgba(58,141,218,0.13);
+    border: 2px solid var(--borda);
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .numero-questao {
+    font-size: 0.78em;
+    color: var(--cinza);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  .tipo-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.7em;
+    font-weight: 800;
+    margin-left: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-multiple { background: rgba(58,141,218,0.12); color: var(--azul); border: 1px solid var(--azul); }
+  .badge-truefalse { background: rgba(59,173,106,0.12); color: var(--verde); border: 1px solid var(--verde); }
+  .badge-fillinblank { background: rgba(139,92,246,0.12); color: var(--roxo); border: 1px solid var(--roxo); }
+
+  .img-questao {
+    width: 100%;
+    max-width: 380px;
+    border-radius: 12px;
+    margin: 0 auto 18px auto;
+    display: block;
+    border: 2px solid var(--borda);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+  }
+
+  .texto-questao {
+    font-size: 1.06em;
+    color: var(--texto);
+    line-height: 1.6;
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+
+  .opcoes { display: flex; flex-direction: column; gap: 10px; }
+
+  .opcao-btn {
+    background: rgba(255,255,255,0.8);
+    border: 2px solid var(--borda);
+    border-radius: 12px;
+    padding: 12px 16px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.97em;
+    font-weight: 600;
+    color: var(--texto);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .opcao-btn:hover:not(:disabled) {
+    background: rgba(58,141,218,0.08);
+    border-color: var(--azul);
+    transform: translateX(4px);
+  }
+
+  .opcao-btn.correta {
+    background: rgba(59,173,106,0.15);
+    border-color: var(--verde);
+    color: #1a5c35;
+  }
+
+  .opcao-btn.errada {
+    background: rgba(240,131,58,0.15);
+    border-color: var(--laranja);
+    color: #7a3000;
+  }
+
+  .opcao-btn.selecionada-errada {
+    background: rgba(232,121,168,0.15);
+    border-color: var(--rosa);
+  }
+
+  .letra-opcao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--azul);
+    color: #fff;
+    font-weight: 900;
+    font-size: 0.82em;
+    flex-shrink: 0;
+  }
+
+  .opcao-btn.correta .letra-opcao { background: var(--verde); }
+  .opcao-btn.errada .letra-opcao { background: var(--laranja); }
+
+  /* V/F */
+  .vf-container { display: flex; gap: 14px; }
+
+  .vf-btn {
+    flex: 1;
+    padding: 16px;
+    border-radius: 14px;
+    border: 2px solid var(--borda);
+    background: rgba(255,255,255,0.8);
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 900;
+    color: var(--texto);
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .vf-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(58,141,218,0.2); }
+  .vf-btn.verdadeiro-btn:hover:not(:disabled) { border-color: var(--verde); background: rgba(59,173,106,0.1); }
+  .vf-btn.falso-btn:hover:not(:disabled) { border-color: var(--laranja); background: rgba(240,131,58,0.1); }
+  .vf-btn.correta { background: rgba(59,173,106,0.2); border-color: var(--verde); color: #1a5c35; }
+  .vf-btn.errada { background: rgba(240,131,58,0.2); border-color: var(--laranja); color: #7a3000; }
+
+  /* Fill in blank */
+  .fillin-container { display: flex; flex-direction: column; gap: 12px; }
+
+  .fillin-input {
+    padding: 12px 16px;
+    border: 2px solid var(--borda);
+    border-radius: 12px;
+    font-size: 1.05em;
+    font-weight: 600;
+    background: rgba(255,255,255,0.9);
+    color: var(--texto);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .fillin-input:focus { border-color: var(--azul); background: #fff; }
+  .fillin-input.correta { border-color: var(--verde); background: rgba(59,173,106,0.08); }
+  .fillin-input.errada { border-color: var(--laranja); background: rgba(240,131,58,0.08); }
+
+  .btn-confirmar {
+    background: linear-gradient(135deg, var(--verde), var(--verde-claro));
+    color: #fff;
+    border: none;
+    padding: 11px 26px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.97em;
+    font-weight: 800;
+    transition: transform 0.2s, box-shadow 0.2s;
+    align-self: flex-start;
+    box-shadow: 0 4px 14px rgba(59,173,106,0.35);
+  }
+
+  .btn-confirmar:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(59,173,106,0.5); }
+  .btn-confirmar:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Feedback */
+  .feedback {
+    display: none;
+    margin-top: 14px;
+    padding: 13px 16px;
+    border-radius: 12px;
+    font-size: 0.93em;
+    line-height: 1.5;
+    font-weight: 600;
+    animation: aparecer 0.4s ease;
+  }
+
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .feedback.acerto { background: rgba(59,173,106,0.15); border: 2px solid var(--verde); color: #1a5c35; }
+  .feedback.erro { background: rgba(240,131,58,0.15); border: 2px solid var(--laranja); color: #7a3000; }
+
+  @keyframes descoberta {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.04); }
+    60% { transform: scale(0.97); }
+    100% { transform: scale(1); }
+  }
+
+  .card-questao.acertou { animation: descoberta 0.5s ease; }
+
+  /* Navegação */
+  .nav-questoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 760px;
+    margin: 0 auto;
+    gap: 12px;
+  }
+
+  .btn-nav {
+    background: rgba(255,255,255,0.85);
+    color: var(--azul);
+    border: 2px solid var(--borda);
+    padding: 11px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.97em;
+    font-weight: 800;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(58,141,218,0.1);
+  }
+
+  .btn-nav:hover:not(:disabled) {
+    background: rgba(58,141,218,0.1);
+    border-color: var(--azul);
+    transform: translateY(-2px);
+  }
+
+  .btn-nav:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+
+  /* ========== TELA RESULTADO ========== */
+  #tela-resultado {
+    display: none;
+    min-height: 100vh;
+    padding: 24px 16px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-resultado {
+    background: rgba(255,255,255,0.92);
+    border-radius: 24px;
+    padding: 36px 40px;
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    border: 2px solid var(--borda);
+    box-shadow: 0 8px 32px rgba(58,141,218,0.18);
+  }
+
+  .resultado-emoji { font-size: 4em; margin-bottom: 10px; }
+  .resultado-titulo { font-size: 1.8em; color: var(--azul); margin-bottom: 6px; font-weight: 900; }
+  .resultado-estrelas { font-size: 2em; margin-bottom: 16px; letter-spacing: 4px; }
+  .resultado-score { font-size: 2.4em; color: var(--roxo); font-weight: 900; margin-bottom: 4px; }
+  .resultado-pct { font-size: 1.05em; color: var(--cinza); margin-bottom: 18px; font-weight: 700; }
+
+  .box-nota {
+    padding: 16px 32px;
+    border-radius: 16px;
+    margin: 0 auto 20px;
+    display: inline-block;
+    min-width: 160px;
+  }
+
+  .box-nota.verde { background: rgba(59,173,106,0.15); border: 2px solid var(--verde); color: #1a5c35; }
+  .box-nota.amarelo { background: rgba(245,197,24,0.15); border: 2px solid var(--amarelo); color: #5a4000; }
+  .box-nota.vermelho { background: rgba(240,131,58,0.15); border: 2px solid var(--laranja); color: #7a3000; }
+
+  .box-nota .label-nota { font-size: 0.82em; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 4px; }
+  .box-nota .valor-nota { font-size: 2.8em; font-weight: 900; }
+
+  .resultado-mensagem {
+    font-size: 0.98em;
+    color: var(--texto-suave);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    background: rgba(58,141,218,0.07);
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid var(--borda);
+    font-weight: 600;
+  }
+
+  .btn-reiniciar {
+    background: linear-gradient(135deg, var(--roxo), var(--azul));
+    color: #fff;
+    border: none;
+    padding: 16px 42px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 900;
+    box-shadow: 0 5px 20px rgba(139,92,246,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn-reiniciar:hover { transform: translateY(-3px); box-shadow: 0 9px 28px rgba(139,92,246,0.55); }
+
+  @media (max-width: 500px) {
+    .titulo-principal { font-size: 1.55em; }
+    .cards-info { gap: 10px; }
+    .card-info { min-width: 80px; padding: 12px 14px; }
+    .card-questao { padding: 18px 14px; }
+    .vf-container { flex-direction: column; }
+    .card-resultado { padding: 24px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TELA INICIAL ============ -->
+<div id="tela-inicio">
+  <div class="bandeira-topo">🇺🇸🇬🇧🇦🇺</div>
+  <div class="titulo-principal">🌍 Simulado de Inglês</div>
+  <div class="subtitulo">1º Semestre · Language Lab · Quests 1–5</div>
+
+  <div class="cards-info">
+    <div class="card-info">
+      <div class="icon">❓</div>
+      <div class="valor">30</div>
+      <div class="label">Perguntas</div>
+    </div>
+    <div class="card-info">
+      <div class="icon">⏳</div>
+      <div class="valor">60</div>
+      <div class="label">Minutos</div>
+    </div>
+    <div class="card-info">
+      <div class="icon">🏆</div>
+      <div class="valor">0–10</div>
+      <div class="label">Nota</div>
+    </div>
+    <div class="card-info">
+      <div class="icon">📚</div>
+      <div class="valor">120</div>
+      <div class="label">Questões no banco</div>
+    </div>
+  </div>
+
+  <div class="video-chamada">
+    <span class="video-chamada-icone">🎬</span>
+    <div>
+      <p class="video-chamada-titulo">Antes de começar, que tal revisar com um vídeo?</p>
+      <p class="video-chamada-sub">Preparamos um vídeo especial para te ajudar a revisar o conteúdo de Inglês e chegar voando no simulado. Aprender inglês pode ser super divertido — é só dar o play! 🚀✨</p>
+    </div>
+  </div>
+  <a class="video-destaque" href="LINK_VIDEO_YOUTUBE" target="_blank">
+    <img src="THUMB_VIDEO" alt="Assista ao vídeo antes de começar">
+    <div class="video-play-btn">▶</div>
+  </a>
+
+  <button class="btn-iniciar" onclick="iniciarQuiz()">🚀 Começar o Simulado!</button>
+</div>
+
+<!-- ============ TELA QUIZ ============ -->
+<div id="tela-quiz">
+  <div class="quiz-header">
+    <div class="quiz-titulo">🌍 Inglês — 1º Semestre</div>
+    <div class="timer" id="timer">60:00</div>
+  </div>
+
+  <div class="progresso-container">
+    <div class="progresso-label">
+      <span>📖 Progresso do simulado</span>
+      <span id="progresso-texto">0 / 30</span>
+    </div>
+    <div class="barra-externa">
+      <div class="barra-interna" id="barra-progresso" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="card-questao" id="card-questao">
+    <div class="numero-questao" id="numero-questao"></div>
+    <div class="texto-questao" id="texto-questao"></div>
+    <div id="area-resposta"></div>
+    <div class="feedback" id="feedback"></div>
+  </div>
+
+  <div class="nav-questoes">
+    <button class="btn-nav" id="btn-anterior" onclick="navegarQuestao(-1)">◀ Anterior</button>
+    <button class="btn-nav" id="btn-proximo" onclick="navegarQuestao(1)" disabled>Próxima ▶</button>
+  </div>
+</div>
+
+<!-- ============ TELA RESULTADO ============ -->
+<div id="tela-resultado" style="display:none; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; padding:24px 16px;">
+  <div class="card-resultado">
+    <div class="resultado-emoji" id="res-emoji"></div>
+    <div class="resultado-titulo" id="res-titulo"></div>
+    <div class="resultado-estrelas" id="res-estrelas"></div>
+    <div class="resultado-score" id="res-score"></div>
+    <div class="resultado-pct" id="res-pct"></div>
+    <div class="box-nota" id="box-nota">
+      <div class="label-nota">Sua Nota</div>
+      <div class="valor-nota" id="res-nota"></div>
+    </div>
+    <div class="resultado-mensagem" id="res-mensagem"></div>
+    <button class="btn-reiniciar" onclick="reiniciar()">🔄 Tentar Novamente</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  BANCO DE 120 QUESTÕES — INGLÊS 1º SEMESTRE
+// ============================================================
+const banco = [
+
+  // ===== THE WEATHER (20 questões) =====
+
+  // --- Múltipla Escolha ---
+  {type:'multiple', question:'What does "It\'s sunny" mean in Portuguese?', options:['Está nublado','Está ensolarado','Está chovendo','Está com vento'], correct:1, explanation:'"It\'s sunny" = "Está ensolarado" — the sun is shining bright! ☀️'},
+  {type:'multiple', question:'How do you say "Está chovendo" in English?', options:['It\'s cloudy','It\'s snowy','It\'s rainy','It\'s foggy'], correct:2, explanation:'"Está chovendo" = "It\'s rainy" — don\'t forget your umbrella! 🌧️'},
+  {type:'multiple', question:'"What\'s the weather like?" is asking about:', options:['The time','The weather','Your name','Your nationality'], correct:1, explanation:'"What\'s the weather like?" is the question to ask about the weather! 🌤️'},
+  {type:'multiple', question:'The leaves are blowing everywhere. The weather is:', options:['It\'s rainy','It\'s windy','It\'s snowy','It\'s foggy'], correct:1, explanation:'When the wind is blowing strongly, we say "It\'s windy"! 💨'},
+  {type:'multiple', question:'Which sentence is CORRECT?', options:['It windy','Is sunny','It\'s a cloudy','It\'s cloudy'], correct:3, explanation:'We always say "It\'s" + weather word: "It\'s cloudy", "It\'s sunny"! ✅'},
+  {type:'multiple', question:'You need an umbrella! The weather is:', options:['It\'s sunny','It\'s windy','It\'s rainy','It\'s snowy'], correct:2, explanation:'When it\'s raining you need an umbrella! The weather is "It\'s rainy"! ☂️'},
+  {type:'multiple', question:'"Está nublado" in English is:', options:['It\'s rainy','It\'s foggy','It\'s cloudy','It\'s windy'], correct:2, explanation:'"Está nublado" = "It\'s cloudy" — there are lots of clouds! ☁️', img:'imagens/img01.jpeg'},
+  {type:'multiple', question:'"It\'s foggy" means:', options:['It\'s very hot','There is thick mist in the air','It\'s snowing','It\'s raining'], correct:1, explanation:'"It\'s foggy" means there is thick mist and you can\'t see far! 🌫️'},
+
+  // --- Verdadeiro / Falso ---
+  {type:'truefalse', question:'"It\'s sunny" and "It\'s snowy" can be the weather at the same time.', correct:false, explanation:'No! Sunny = hot sun ☀️. Snowy = cold and snow ❄️. They don\'t happen at the same time!'},
+  {type:'truefalse', question:'We say "What\'s the weather like?" to ask about the weather.', correct:true, explanation:'Correct! "What\'s the weather like?" is the right question! 🌤️', img:'imagens/img08.jpeg'},
+  {type:'truefalse', question:'"It\'s a sunny" is a correct sentence in English.', correct:false, explanation:'Wrong! We say "It\'s sunny" — no "a" needed! Weather words don\'t use "a"! ☀️'},
+  {type:'truefalse', question:'"It\'s windy" means there is a lot of wind.', correct:true, explanation:'Correct! "It\'s windy" means it\'s very windy outside! 💨'},
+  {type:'truefalse', question:'"Está nevando" in English is "It\'s foggy".', correct:false, explanation:'"Está nevando" = "It\'s snowy"! "Foggy" means "Está com neblina"! ❄️'},
+  {type:'truefalse', question:'You use "It\'s" before every weather word.', correct:true, explanation:'Correct! It\'s sunny, It\'s rainy, It\'s cloudy... always "It\'s"! ✅'},
+
+  // --- Completar lacuna ---
+  {type:'fillinblank', question:'Complete: "It\'s _____ and cold today." (lots of snow — one word!)', answer:'snowy', explanation:'"It\'s snowy and cold" — perfect weather for hot chocolate! ❄️☕'},
+  {type:'fillinblank', question:'Complete: "What\'s the _____ like today?"', answer:'weather', explanation:'"What\'s the weather like?" — this is how we ask about the weather! 🌤️'},
+  {type:'fillinblank', question:'In English, "Está ventando" is: "It\'s _____."', answer:'windy', explanation:'"Está ventando" = "It\'s windy"! 💨'},
+  {type:'fillinblank', question:'Complete: "It\'s _____ — the sun is shining!"', answer:'sunny', explanation:'"It\'s sunny" — the sun is out and it\'s a beautiful day! ☀️'},
+  {type:'fillinblank', question:'Complete: "It\'s _____ — there are clouds in the sky."', answer:'cloudy', explanation:'"It\'s cloudy" — clouds are covering the sky! ☁️'},
+  {type:'fillinblank', question:'Complete: "It\'s _____ — I can\'t see very far!" (thick mist)', answer:'foggy', explanation:'"It\'s foggy" — when there is lots of mist! 🌫️'},
+
+  // ===== COUNTRIES & NATIONALITIES (20 questões) =====
+
+  // --- Múltipla Escolha ---
+  {type:'multiple', question:'Someone from Australia is:', options:['Australish','Australian','Australic','Australen'], correct:1, explanation:'Someone from Australia is "Australian"! 🇦🇺', img:'imagens/img02.jpeg'},
+  {type:'multiple', question:'"I\'m from the UK." Your nationality is:', options:['I\'m American','I\'m British','I\'m Australian','I\'m German'], correct:1, explanation:'People from the UK (United Kingdom) are "British"! 🇬🇧'},
+  {type:'multiple', question:'Someone from the USA is called:', options:['Usian','USAn','Amerish','American'], correct:3, explanation:'People from the USA are "American"! 🇺🇸'},
+  {type:'multiple', question:'"Where are you from?" — correct answer:', options:['I\'m British','I\'m from Brazil','Yes, I am','It\'s rainy'], correct:1, explanation:'"Where are you from?" asks about your country! Answer: "I\'m from [country]"! 🌍'},
+  {type:'multiple', question:'Nationality words in English start with a:', options:['lowercase letter','capital letter','number','question mark'], correct:1, explanation:'Nationality words always start with a CAPITAL letter: Australian, British, American! 📝', img:'imagens/img10.jpeg'},
+  {type:'multiple', question:'Someone from Vietnam is:', options:['Vietnamian','Vietnamer','Vietnamish','Vietnamese'], correct:3, explanation:'People from Vietnam are "Vietnamese"! 🇻🇳'},
+  {type:'multiple', question:'He\'s from the USA. He\'s:', options:['British','German','American','Vietnamese'], correct:2, explanation:'"He\'s from the USA" → "He\'s American"! 🇺🇸'},
+  {type:'multiple', question:'Which is written CORRECTLY?', options:['i\'m australian','I\'m australian','I\'m Australian','im Australian'], correct:2, explanation:'"I\'m Australian" — both "I" and "Australian" need capital letters! 📝'},
+
+  // --- Verdadeiro / Falso ---
+  {type:'truefalse', question:'"I\'m from Germany" means the same as "I\'m German".', correct:true, explanation:'Correct! Both tell us someone is from Germany! 🇩🇪'},
+  {type:'truefalse', question:'"She\'s from Brazil. She\'s Brasilian." is correct.', correct:false, explanation:'Wrong spelling! It\'s "Brazilian" with a "z"! 🇧🇷'},
+  {type:'truefalse', question:'"Australian" starts with a lowercase letter.', correct:false, explanation:'Wrong! Nationality words ALWAYS start with a CAPITAL letter! 📝'},
+  {type:'truefalse', question:'The nationality for someone from the UK is "British".', correct:true, explanation:'Correct! People from the UK are "British"! 🇬🇧'},
+  {type:'truefalse', question:'"He\'s from Vietnam. He\'s Vietnamese." is correct.', correct:true, explanation:'Correct! "Vietnamese" is the nationality for people from Vietnam! 🇻🇳'},
+  {type:'truefalse', question:'"I\'m from the USA. I\'m British." is correct.', correct:false, explanation:'Wrong! People from the USA are "American", not "British"! 🇺🇸'},
+
+  // --- Completar lacuna ---
+  {type:'fillinblank', question:'She\'s from Australia. She\'s _____.', answer:'Australian', explanation:'"She\'s Australian" — people from Australia are Australian! 🇦🇺'},
+  {type:'fillinblank', question:'He\'s from Germany. He\'s _____.', answer:'German', explanation:'"He\'s German" — people from Germany are German! 🇩🇪'},
+  {type:'fillinblank', question:'She\'s from the UK. She\'s _____.', answer:'British', explanation:'"She\'s British" — people from the UK are British! 🇬🇧'},
+  {type:'fillinblank', question:'"_____ are you from?" (asking about country)', answer:'Where', explanation:'"Where are you from?" — we use "Where" to ask about country! 🌍'},
+  {type:'fillinblank', question:'He\'s from Brazil. He\'s _____.', answer:'Brazilian', explanation:'"He\'s Brazilian" — people from Brazil are Brazilian! 🇧🇷'},
+  {type:'fillinblank', question:'She\'s from Vietnam. She\'s _____.', answer:'Vietnamese', explanation:'"She\'s Vietnamese" — people from Vietnam are Vietnamese! 🇻🇳'},
+
+  // ===== PRESENT CONTINUOUS — AFFIRMATIVE (20 questões) =====
+
+  // --- Múltipla Escolha ---
+  {type:'multiple', question:'"She ___ watching TV." Choose the correct word.', options:['am','are','is','be'], correct:2, explanation:'"She" is singular — use "is": She IS watching TV! 📺', img:'imagens/img05.jpeg'},
+  {type:'multiple', question:'"They ___ playing video games."', options:['is','am','be','are'], correct:3, explanation:'"They" uses "are": They ARE playing video games! 🎮'},
+  {type:'multiple', question:'"I ___ playing football with my friends."', options:['are','is','am','be'], correct:2, explanation:'"I" always uses "am": I AM playing football! ⚽'},
+  {type:'multiple', question:'Present Continuous is formed with:', options:['verb + s','am/is/are + verb+ing','have + verb','verb + ed'], correct:1, explanation:'Present Continuous = am/is/are + verb-ING! (e.g. I am play-ING) 📚'},
+  {type:'multiple', question:'"She is ride___ a bike." What goes in the blank?', options:['-s','-ing','-ed','nothing'], correct:1, explanation:'"ride" → "riding" (drop the e, add -ing)! 🚲'},
+  {type:'multiple', question:'Choose the CORRECT sentence:', options:['She playing tennis','She are playing tennis','She is playing tennis','She am playing tennis'], correct:2, explanation:'"She IS playing tennis" — use "is" with she/he/it! 🎾'},
+  {type:'multiple', question:'"He is do___ gymnastics." Correct form:', options:['He is doing gymnastics','He is does gymnastics','He is doeing gymnastics','He doing gymnastics'], correct:0, explanation:'"do" → "doing"! He IS DOING gymnastics! 🤸'},
+  {type:'multiple', question:'What does "She\'s watching a film online" mean?', options:['Ela assistiu a um filme','Ela vai assistir','Ela está assistindo um filme online','Ela gosta de filmes'], correct:2, explanation:'"She\'s watching" = Ela ESTÁ assistindo — action happening NOW! 🎬'},
+
+  // --- Verdadeiro / Falso ---
+  {type:'truefalse', question:'"I am playing football" is correct present continuous.', correct:true, explanation:'Correct! I + am + play-ing = "I am playing football"! ⚽'},
+  {type:'truefalse', question:'"She are watching TV" is correct.', correct:false, explanation:'Wrong! "She" uses "is"! Correct: "She IS watching TV"! 📺'},
+  {type:'truefalse', question:'Present continuous is used for actions happening RIGHT NOW.', correct:true, explanation:'Correct! We use present continuous for things happening at this moment! ⏰'},
+  {type:'truefalse', question:'"They is playing video games" is correct.', correct:false, explanation:'Wrong! "They" uses "are"! Correct: "They ARE playing video games"! 🎮'},
+  {type:'truefalse', question:'"She\'s" is the same as "She is".', correct:true, explanation:'Correct! "She\'s" is a contraction of "She is"! ✅'},
+  {type:'truefalse', question:'You add "-ing" to the verb to make present continuous.', correct:true, explanation:'Correct! play → play-ING, watch → watch-ING, do → do-ING! 📝'},
+
+  // --- Completar lacuna ---
+  {type:'fillinblank', question:'Complete: "I am _____ football." (play → add -ing)', answer:'playing', explanation:'"play" + "-ing" = "playing"! I am PLAYING football! ⚽'},
+  {type:'fillinblank', question:'Complete: "She _____ watching a film." (is/are/am)', answer:'is', explanation:'"She IS watching a film" — use "is" with she/he/it! 🎬'},
+  {type:'fillinblank', question:'Complete: "They are _____ video games." (play → add -ing)', answer:'playing', explanation:'"play" + "-ing" = "playing"! They are PLAYING video games! 🎮'},
+  {type:'fillinblank', question:'Complete: "He is _____ judo." (do → add -ing)', answer:'doing', explanation:'"do" + "-ing" = "doing"! He is DOING judo! 🥋'},
+  {type:'fillinblank', question:'Complete: "She is _____ a bike." (ride → -ing form)', answer:'riding', explanation:'"ride" loses the "e" and adds "-ing": rid-ING! 🚲'},
+  {type:'fillinblank', question:'Complete: "They _____ listening to music." (are/is/am)', answer:'are', explanation:'"They ARE listening to music" — use "are" with they/you/we! 🎵'},
+
+  // ===== PRESENT CONTINUOUS — NEGATIVE (15 questões) =====
+
+  // --- Múltipla Escolha ---
+  {type:'multiple', question:'"He ___ playing basketball." (negative)', options:['isn\'t','aren\'t','am not','is'], correct:0, explanation:'"He" uses "isn\'t" for negative: He ISN\'T playing basketball! 🏀', img:'imagens/img06.jpeg'},
+  {type:'multiple', question:'"They ___ reading a book." (negative)', options:['isn\'t','is not','am not','aren\'t'], correct:3, explanation:'"They" uses "aren\'t" for negative: They AREN\'T reading a book! 📚'},
+  {type:'multiple', question:'Negative of "She is watching a film":', options:['She isn\'t watching a film','She aren\'t watching','She not watching','She is not watch'], correct:0, explanation:'"isn\'t" is the negative of "is"! She ISN\'T watching a film! 🎬'},
+  {type:'multiple', question:'"Isn\'t" is the same as:', options:['is not','are not','am not','was not'], correct:0, explanation:'"Isn\'t" = "is not" — just a shorter contraction! ✂️'},
+  {type:'multiple', question:'Choose the CORRECT negative sentence:', options:['He aren\'t playing','He isn\'t playing','He not playing','He is not play'], correct:1, explanation:'"He ISN\'T playing" — "isn\'t" = "is not"! ✅'},
+  {type:'multiple', question:'"They ___ riding bikes." (negative, correct form)', options:['They isn\'t riding','They aren\'t riding','They is not riding','They not riding'], correct:1, explanation:'"They AREN\'T riding bikes" — use "aren\'t" with they! 🚲'},
+
+  // --- Verdadeiro / Falso ---
+  {type:'truefalse', question:'"He isn\'t playing football" is correct negative present continuous.', correct:true, explanation:'Correct! He + isn\'t + play-ING = correct negative! ⚽'},
+  {type:'truefalse', question:'"They isn\'t playing basketball" is correct.', correct:false, explanation:'Wrong! "They" uses "aren\'t"! Correct: "They AREN\'T playing basketball"! 🏀'},
+  {type:'truefalse', question:'"Aren\'t" is the negative form used with "they".', correct:true, explanation:'Correct! They AREN\'T watching TV — "aren\'t" = "are not"! 📺'},
+  {type:'truefalse', question:'"She isn\'t" is the same as "She is not".', correct:true, explanation:'Correct! "She isn\'t" = "She is not" — both are negative! ✅'},
+  {type:'truefalse', question:'"They aren\'t reading a book" means they ARE reading a book.', correct:false, explanation:'Wrong! "AREN\'T" makes it NEGATIVE — they are NOT reading! 📚'},
+
+  // --- Completar lacuna ---
+  {type:'fillinblank', question:'Complete: "He _____ playing basketball." (negative, use isn\'t)', answer:"isn't", explanation:'"He ISN\'T playing basketball"! 🏀'},
+  {type:'fillinblank', question:'Complete: "They _____ reading a book." (negative, use aren\'t)', answer:"aren't", explanation:'"They AREN\'T reading a book"! 📚'},
+  {type:'fillinblank', question:'"She isn\'t listening to music" — "isn\'t" is short for "is _____."', answer:'not', explanation:'"Isn\'t" = "is NOT" — a contraction! ✂️'},
+  {type:'fillinblank', question:'Complete: "She _____ riding a bike, she is walking the dog." (negative)', answer:"isn't", explanation:'"She ISN\'T riding a bike, she is walking the dog"! 🚲🐕'},
+
+  // ===== PRESENT CONTINUOUS — QUESTIONS (12 questões) =====
+
+  // --- Múltipla Escolha ---
+  {type:'multiple', question:'"___ he playing football?" (question)', options:['Are','Am','Does','Is'], correct:3, explanation:'For questions with "he/she/it", use "Is": IS he playing football? ⚽'},
+  {type:'multiple', question:'"___ they playing volleyball?" (question)', options:['Is','Am','Does','Are'], correct:3, explanation:'For questions with "they", use "Are": ARE they playing volleyball? 🏐', img:'imagens/img03.jpeg'},
+  {type:'multiple', question:'"Is she playing basketball?" → Positive short answer:', options:['Yes, she is','Yes, she are','Yes, she does','Yes, she am'], correct:0, explanation:'Short positive answer: "Yes, she IS!" ✅'},
+  {type:'multiple', question:'"Are they playing volleyball?" → Negative short answer:', options:['No, they isn\'t','No, they aren\'t','No, they doesn\'t','No, they not'], correct:1, explanation:'Short negative answer: "No, they AREN\'T"! 🏐'},
+
+  // --- Verdadeiro / Falso ---
+  {type:'truefalse', question:'"Is he playing football?" is a correct question.', correct:true, explanation:'Correct! "Is" + subject + verb-ING = present continuous question! ⚽'},
+  {type:'truefalse', question:'"Are she playing basketball?" is correct.', correct:false, explanation:'Wrong! "She" uses "Is"! Correct: "IS she playing basketball?"! 🏀'},
+  {type:'truefalse', question:'The short answer to "Is he playing?" can be "Yes, he is" or "No, he isn\'t".', correct:true, explanation:'Correct! Short answers for yes/no questions! ✅'},
+  {type:'truefalse', question:'"Are you playing tennis?" can be answered "Yes, I am."', correct:true, explanation:'Correct! "Are you...?" → "Yes, I am" or "No, I\'m not"! 🎾'},
+
+  // --- Completar lacuna ---
+  {type:'fillinblank', question:'"_____ she playing tennis?" (question with she)', answer:'Is', explanation:'"Is she playing tennis?" — use "Is" for questions with she/he/it! 🎾'},
+  {type:'fillinblank', question:'"Is he playing football?" → "Yes, he _____."', answer:'is', explanation:'"Yes, he IS" — short positive answer! ⚽'},
+  {type:'fillinblank', question:'"Are they playing volleyball?" → "No, they _____."', answer:"aren't", explanation:'"No, they AREN\'T" — short negative answer! 🏐'},
+  {type:'fillinblank', question:'"_____ they playing basketball?" (question with they)', answer:'Are', explanation:'"Are they playing basketball?" — use "Are" with they/you/we! 🏀'},
+
+  // ===== SPORTS VOCABULARY (13 questões) =====
+
+  // --- Múltipla Escolha ---
+  {type:'multiple', question:'Which sport uses "DO" instead of "PLAY"?', options:['Football','Volleyball','Judo','Basketball'], correct:2, explanation:'We say "DO judo" and "DO gymnastics" — not play! 🥋', img:'imagens/img16.jpeg'},
+  {type:'multiple', question:'"Play wheelchair _____." What sport?', options:['tennis','football','basketball','judo'], correct:2, explanation:'It\'s "play wheelchair basketball"! 🏀♿'},
+  {type:'multiple', question:'Which is CORRECT?', options:['I play judo','I do judo','I am judo','I make judo'], correct:1, explanation:'"DO judo" is correct! We say "do" for judo and gymnastics! 🥋'},
+  {type:'multiple', question:'"Play table _____." What sport?', options:['tennis','judo','football','basketball'], correct:0, explanation:'It\'s "play table tennis"! 🏓'},
+  {type:'multiple', question:'What sport is the girl playing in the image? (play football / do judo / play volleyball / do gymnastics)', options:['play football','do judo','play volleyball','do gymnastics'], correct:0, img:'imagens/img09.jpeg', explanation:'"play football" — the kids in the image are playing football! ⚽'},
+
+  // --- Verdadeiro / Falso ---
+  {type:'truefalse', question:'"Play football" and "do football" are both correct.', correct:false, explanation:'Wrong! We only say "PLAY football"! "Do" is for judo and gymnastics! ⚽'},
+  {type:'truefalse', question:'"Do gymnastics" is correct English.', correct:true, explanation:'Correct! Gymnastics uses "do": do gymnastics, do judo! 🤸'},
+  {type:'truefalse', question:'"Play volleyball" is correct English.', correct:true, explanation:'Correct! Volleyball uses "play": play volleyball, play football, play basketball! 🏐'},
+  {type:'truefalse', question:'"I play judo" is correct English.', correct:false, explanation:'Wrong! Judo uses "DO"! Correct: "I DO judo"! 🥋'},
+
+  // --- Completar lacuna ---
+  {type:'fillinblank', question:'Complete: "I _____ judo every day." (do or play?)', answer:'do', explanation:'"I DO judo" — judo always uses "do"! 🥋'},
+  {type:'fillinblank', question:'Complete: "They _____ table tennis after school." (do or play?)', answer:'play', explanation:'"They PLAY table tennis" — table tennis uses "play"! 🏓'},
+  {type:'fillinblank', question:'Complete: "She _____ wheelchair basketball." (do or play?)', answer:'plays', explanation:'"She PLAYS wheelchair basketball"! 🏀♿'},
+  {type:'fillinblank', question:'Complete: "He _____ gymnastics at the gym." (do or play?)', answer:'does', explanation:'"He DOES gymnastics" — gymnastics uses "do"! 🤸'},
+
+  // ===== LEISURE ACTIVITIES (12 questões) =====
+
+  // --- Múltipla Escolha ---
+  {type:'multiple', question:'What does "ride a bike" mean?', options:['Ler um livro','Andar de bicicleta','Passear com o cachorro','Jogar videogame'], correct:1, explanation:'"Ride a bike" = "Andar de bicicleta"! 🚲', img:'imagens/img12.jpeg'},
+  {type:'multiple', question:'"Walk the dog" means:', options:['Dar comida ao cachorro','Dar banho no cachorro','Passear com o cachorro','Brincar com o cachorro'], correct:2, explanation:'"Walk the dog" = "Passear com o cachorro"! 🐕'},
+  {type:'multiple', question:'"Watch a film online" means:', options:['Ler online','Jogar online','Ouvir música online','Assistir a um filme online'], correct:3, explanation:'"Watch a film online" = "Assistir a um filme online"! 🎬'},
+  {type:'multiple', question:'Which is a leisure activity?', options:['Do homework','Write a letter','Play video games','Cook dinner'], correct:2, explanation:'"Play video games" is a leisure activity from the book! 🎮'},
+
+  // --- Verdadeiro / Falso ---
+  {type:'truefalse', question:'"Listen to music" is a leisure activity.', correct:true, explanation:'Correct! "Listen to music" is a fun leisure activity! 🎵'},
+  {type:'truefalse', question:'"Ride a bike" means "ler um livro".', correct:false, explanation:'Wrong! "Ride a bike" = "andar de bicicleta"! "Read a book" = "ler um livro"! 🚲📚'},
+  {type:'truefalse', question:'"Play video games" is correct English.', correct:true, explanation:'Correct! We say "play video games"! 🎮'},
+  {type:'truefalse', question:'"Walk the dog" and "play with the dog" mean exactly the same thing.', correct:false, explanation:'"Walk the dog" = take the dog for a walk. "Play with the dog" = brincam com o cachorro! 🐕'},
+
+  // --- Completar lacuna ---
+  {type:'fillinblank', question:'Complete: "I love to _____ a bike in the park."', answer:'ride', explanation:'"I love to RIDE a bike in the park"! 🚲'},
+  {type:'fillinblank', question:'Complete: "She likes to _____ the dog every morning."', answer:'walk', explanation:'"She likes to WALK the dog every morning"! 🐕'},
+  {type:'fillinblank', question:'Complete: "They _____ video games after school." (play)', answer:'play', explanation:'"They PLAY video games after school"! 🎮'},
+  {type:'fillinblank', question:'Complete: "He likes to _____ a book before bed."', answer:'read', explanation:'"He likes to READ a book before bed"! 📚'},
+
+  // ===== FAVOURITE SPORT & BREAK TIME (8 questões) =====
+
+  // --- Múltipla Escolha ---
+  {type:'multiple', question:'"What\'s your favourite sport?" — correct answer:', options:['Yes, I like it','I\'m playing football','Because I\'m fast','It\'s football'], correct:3, explanation:'"What\'s your favourite sport?" → "It\'s football!" ⚽', img:'imagens/img19.jpeg'},
+  {type:'multiple', question:'"Why do you like it?" — correct answer:', options:['Yes, I do','It\'s football','Because I\'m very fast','Football is good'], correct:2, explanation:'"Why do you like it?" → "Because I\'m very fast / I can score goals"! ⚽'},
+
+  // --- Verdadeiro / Falso ---
+  {type:'truefalse', question:'"What\'s your favourite sport?" is asking about the sport you like the most.', correct:true, explanation:'Correct! "Favourite" = the one you like the most! ⭐'},
+  {type:'truefalse', question:'"Because" is used to give a reason.', correct:true, explanation:'Correct! "Because" explains WHY: "Because I\'m fast!" ✅'},
+
+  // --- Completar lacuna ---
+  {type:'fillinblank', question:'"What\'s your _____ sport?" (the sport you like most)', answer:'favourite', explanation:'"What\'s your FAVOURITE sport?" ⭐'},
+  {type:'fillinblank', question:'"Why do you like it?" → "_____ I can score goals!"', answer:'Because', explanation:'"BECAUSE I can score goals!" — "because" gives the reason! ✅'},
+  {type:'fillinblank', question:'"What\'s your favourite sport?" → "_____ table tennis!"', answer:"It's", explanation:'"IT\'S table tennis!" — always start with "It\'s"! 🏓'},
+  {type:'fillinblank', question:'"What\'s your favourite sport?" → "_____ wheelchair basketball!"', answer:"It's", explanation:'"IT\'S wheelchair basketball!" — always start with "It\'s"! 🏀♿'},
+
+];
+
+// ============================================================
+//  LÓGICA DO SIMULADO
+// ============================================================
+var questoesSorteadas = [];
+var respostas = [];
+var questaoAtual = 0;
+var timeRemaining = 60 * 60;
+var timerInterval = null;
+var quizIniciado = false;
+
+function shuffleArray(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+function iniciarQuiz() {
+  questoesSorteadas = shuffleArray(banco).slice(0, 30);
+  respostas = Array(30).fill(null);
+  questaoAtual = 0;
+  timeRemaining = 60 * 60;
+
+  document.getElementById('tela-inicio').style.display = 'none';
+  document.getElementById('tela-quiz').style.display = 'block';
+
+  iniciarTimer();
+  renderizarQuestao();
+}
+
+function iniciarTimer() {
+  clearInterval(timerInterval);
+  atualizarDisplay();
+  timerInterval = setInterval(function() {
+    timeRemaining--;
+    atualizarDisplay();
+    if (timeRemaining <= 0) {
+      clearInterval(timerInterval);
+      mostrarResultado();
+    }
+  }, 1000);
+}
+
+function atualizarDisplay() {
+  var m = Math.floor(timeRemaining / 60);
+  var s = timeRemaining % 60;
+  var el = document.getElementById('timer');
+  el.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  el.className = 'timer';
+  if (timeRemaining <= 600) el.classList.add('aviso');
+  if (timeRemaining <= 120) el.classList.add('perigo');
+}
+
+function renderizarQuestao() {
+  var q = questoesSorteadas[questaoAtual];
+  var respondidas = respostas.filter(function(r) { return r !== null; }).length;
+
+  document.getElementById('barra-progresso').style.width = (respondidas / 30 * 100) + '%';
+  document.getElementById('progresso-texto').textContent = respondidas + ' / 30';
+
+  var tipoLabel = q.type === 'multiple' ? 'Múltipla Escolha' :
+                  q.type === 'truefalse' ? 'Verdadeiro / Falso' : 'Complete a Frase';
+  var badgeClass = 'badge-' + q.type;
+
+  document.getElementById('numero-questao').innerHTML =
+    'Questão ' + (questaoAtual + 1) + ' de 30' +
+    ' <span class="tipo-badge ' + badgeClass + '">' + tipoLabel + '</span>';
+
+  var textoEl = document.getElementById('texto-questao');
+  var imgHtml = '';
+  if (q.img) {
+    imgHtml = '<img src="' + q.img + '" class="img-questao" alt="Imagem da questão">';
+  }
+  textoEl.innerHTML = imgHtml + q.question;
+
+  var area = document.getElementById('area-resposta');
+  var feedback = document.getElementById('feedback');
+  feedback.style.display = 'none';
+  feedback.className = 'feedback';
+
+  var respondeu = respostas[questaoAtual] !== null;
+
+  if (q.type === 'multiple') {
+    var html = '<div class="opcoes">';
+    var letras = ['A', 'B', 'C', 'D'];
+    q.options.forEach(function(op, i) {
+      var cls = 'opcao-btn';
+      if (respondeu) {
+        if (i === q.correct) cls += ' correta';
+        else if (respostas[questaoAtual] === i) cls += ' errada selecionada-errada';
+      }
+      html += '<button class="' + cls + '" ' +
+        (respondeu ? 'disabled' : 'onclick="responderMultiple(' + i + ')"') + '>' +
+        '<span class="letra-opcao">' + letras[i] + '</span>' + op + '</button>';
+    });
+    html += '</div>';
+    area.innerHTML = html;
+  } else if (q.type === 'truefalse') {
+    var vCls = 'vf-btn verdadeiro-btn' + (respondeu && q.correct === true ? ' correta' : respondeu && respostas[questaoAtual] === true && q.correct !== true ? ' errada' : '');
+    var fCls = 'vf-btn falso-btn' + (respondeu && q.correct === false ? ' correta' : respondeu && respostas[questaoAtual] === false && q.correct !== false ? ' errada' : '');
+    area.innerHTML = '<div class="vf-container">' +
+      '<button class="' + vCls + '" ' + (respondeu ? 'disabled' : 'onclick="responderVF(true)"') + '>✅ True</button>' +
+      '<button class="' + fCls + '" ' + (respondeu ? 'disabled' : 'onclick="responderVF(false)"') + '>❌ False</button>' +
+      '</div>';
+  } else {
+    var inputCls = 'fillin-input' + (respondeu ? (respostas[questaoAtual] === '__correct__' ? ' correta' : ' errada') : '');
+    var inputVal = respondeu && respostas[questaoAtual] !== '__correct__' ? respostas[questaoAtual] : (respondeu ? q.answer : '');
+    area.innerHTML = '<div class="fillin-container">' +
+      '<input type="text" class="' + inputCls + '" id="fillin-input" placeholder="Type your answer here..." value="' + (inputVal || '') + '" ' + (respondeu ? 'disabled' : '') + '>' +
+      '<button class="btn-confirmar" id="btn-confirmar" onclick="responderFillin()" ' + (respondeu ? 'disabled' : '') + '>✔ Confirm</button>' +
+      '</div>';
+    if (!respondeu) {
+      setTimeout(function() {
+        var inp = document.getElementById('fillin-input');
+        if (inp) {
+          inp.addEventListener('keypress', function(e) { if (e.key === 'Enter') responderFillin(); });
+        }
+      }, 50);
+    }
+  }
+
+  if (respondeu) {
+    mostrarFeedback(q);
+  }
+
+  document.getElementById('btn-anterior').disabled = (questaoAtual === 0);
+  document.getElementById('btn-proximo').disabled = !respondeu && questaoAtual < 29;
+
+  if (questaoAtual === 29 && respondeu) {
+    document.getElementById('btn-proximo').disabled = false;
+    document.getElementById('btn-proximo').textContent = 'Ver Resultado ▶';
+  } else if (questaoAtual < 29) {
+    document.getElementById('btn-proximo').textContent = 'Próxima ▶';
+  }
+}
+
+function responderMultiple(idx) {
+  respostas[questaoAtual] = idx;
+  renderizarQuestao();
+  avancarSeNaoUltima();
+}
+
+function responderVF(val) {
+  respostas[questaoAtual] = val;
+  renderizarQuestao();
+  avancarSeNaoUltima();
+}
+
+function responderFillin() {
+  var inp = document.getElementById('fillin-input');
+  if (!inp || inp.value.trim() === '') return;
+  var resposta = inp.value.trim();
+  var q = questoesSorteadas[questaoAtual];
+  var correto = resposta.toLowerCase().replace(/['']/g, "'") === q.answer.toLowerCase().replace(/['']/g, "'");
+  respostas[questaoAtual] = correto ? '__correct__' : resposta;
+  renderizarQuestao();
+  avancarSeNaoUltima();
+}
+
+function avancarSeNaoUltima() {
+  if (questaoAtual < 29) {
+    setTimeout(function() { navegarQuestao(1); }, 1200);
+  } else {
+    document.getElementById('btn-proximo').disabled = false;
+    document.getElementById('btn-proximo').textContent = 'Ver Resultado ▶';
+  }
+}
+
+function mostrarFeedback(q) {
+  var feedback = document.getElementById('feedback');
+  var resp = respostas[questaoAtual];
+  var acertou;
+
+  if (q.type === 'multiple') acertou = resp === q.correct;
+  else if (q.type === 'truefalse') acertou = resp === q.correct;
+  else acertou = resp === '__correct__';
+
+  feedback.style.display = 'block';
+  feedback.className = 'feedback ' + (acertou ? 'acerto' : 'erro');
+  feedback.innerHTML = (acertou ? '🎉 Correct! ' : '💡 Not quite! ') + q.explanation;
+
+  if (acertou) {
+    document.getElementById('card-questao').classList.add('acertou');
+    setTimeout(function() {
+      document.getElementById('card-questao').classList.remove('acertou');
+    }, 600);
+  }
+}
+
+function navegarQuestao(dir) {
+  var novaIdx = questaoAtual + dir;
+  if (novaIdx === 30) {
+    mostrarResultado();
+    return;
+  }
+  if (novaIdx < 0 || novaIdx > 29) return;
+  questaoAtual = novaIdx;
+  renderizarQuestao();
+}
+
+function mostrarResultado() {
+  clearInterval(timerInterval);
+
+  var certas = 0;
+  questoesSorteadas.forEach(function(q, i) {
+    var resp = respostas[i];
+    if (resp === null) return;
+    if (q.type === 'multiple' && resp === q.correct) certas++;
+    else if (q.type === 'truefalse' && resp === q.correct) certas++;
+    else if (q.type === 'fillinblank' && resp === '__correct__') certas++;
+  });
+
+  var respondidas = respostas.filter(function(r) { return r !== null; }).length;
+  var pct = Math.round(certas / 30 * 100);
+  var nota = (certas / 30 * 10).toFixed(1).replace('.', ',');
+  var notaNum = parseFloat(nota.replace(',', '.'));
+
+  document.getElementById('tela-quiz').style.display = 'none';
+  var telRes = document.getElementById('tela-resultado');
+  telRes.style.display = 'flex';
+
+  var emoji, titulo, estrelas, mensagem;
+
+  if (notaNum >= 9) {
+    emoji = '🏆'; titulo = 'Amazing job!'; estrelas = '⭐⭐⭐⭐⭐';
+    mensagem = 'Wow, you\'re incredible! Your English is fantastic! Keep it up — you\'re a true Language Lab champion! 🌟';
+  } else if (notaNum >= 7) {
+    emoji = '🎉'; titulo = 'Well done!'; estrelas = '⭐⭐⭐⭐';
+    mensagem = 'Excellent work! You know your English really well. A little more practice and you\'ll be perfect! 💪';
+  } else if (notaNum >= 5) {
+    emoji = '😊'; titulo = 'Good effort!'; estrelas = '⭐⭐⭐';
+    mensagem = 'Good job! You\'re learning a lot. Review the parts you missed and try again — you can do it! 📚';
+  } else {
+    emoji = '💪'; titulo = 'Keep going!'; estrelas = '⭐⭐';
+    mensagem = 'Don\'t give up! Every champion starts somewhere. Review the material, watch the video and try again! You\'ve got this! 🚀';
+  }
+
+  document.getElementById('res-emoji').textContent = emoji;
+  document.getElementById('res-titulo').textContent = titulo;
+  document.getElementById('res-estrelas').textContent = estrelas;
+  document.getElementById('res-score').textContent = certas + ' / 30 corretas';
+  document.getElementById('res-pct').textContent = pct + '% de aproveitamento';
+  document.getElementById('res-nota').textContent = nota;
+  document.getElementById('res-mensagem').innerHTML = mensagem;
+
+  var boxNota = document.getElementById('box-nota');
+  boxNota.className = 'box-nota ' + (notaNum >= 7 ? 'verde' : notaNum >= 5 ? 'amarelo' : 'vermelho');
+}
+
+function reiniciar() {
+  questoesSorteadas = [];
+  respostas = [];
+  questaoAtual = 0;
+  timeRemaining = 60 * 60;
+  clearInterval(timerInterval);
+
+  document.getElementById('tela-resultado').style.display = 'none';
+  document.getElementById('tela-inicio').style.display = 'flex';
+}
+</script>
+</body>
+</html>
