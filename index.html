@@ -646,8 +646,10 @@
       <p class="video-chamada-sub">Preparamos um vídeo especial para te ajudar a revisar o conteúdo de Inglês e chegar voando no simulado. Aprender inglês pode ser super divertido — é só dar o play! 🚀✨</p>
     </div>
   </div>
-  <a class="video-destaque" href="LINK_VIDEO_YOUTUBE" target="_blank">
-    <img src="THUMB_VIDEO" alt="Assista ao vídeo antes de começar">
+  <a class="video-destaque" href="https://youtu.be/T5VYPaa1uqw" target="_blank">
+    <img src="https://img.youtube.com/vi/T5VYPaa1uqw/maxresdefault.jpg"
+         onerror="this.src='https://img.youtube.com/vi/T5VYPaa1uqw/hqdefault.jpg'"
+         alt="Assista ao vídeo antes de começar">
     <div class="video-play-btn">▶</div>
   </a>
 
@@ -890,6 +892,19 @@ const banco = [
   {type:'fillinblank', question:'"Why do you like it?" → "_____ I can score goals!"', answer:'Because', explanation:'"BECAUSE I can score goals!" — "because" gives the reason! ✅'},
   {type:'fillinblank', question:'"What\'s your favourite sport?" → "_____ table tennis!"', answer:"It's", explanation:'"IT\'S table tennis!" — always start with "It\'s"! 🏓'},
   {type:'fillinblank', question:'"What\'s your favourite sport?" → "_____ wheelchair basketball!"', answer:"It's", explanation:'"IT\'S wheelchair basketball!" — always start with "It\'s"! 🏀♿'},
+
+  // ===== LOOK & ANSWER — Imagens didáticas (10 questões) =====
+
+  {type:'imageword', img:'imgapp/q_weather_sunny.png', question:'Look at the image. What does "SUNNY" mean in Portuguese?', options:['Nublado','Ensolarado','Chovendo','Nevando'], correct:1, explanation:'"Sunny" = "Ensolarado" — o sol está brilhando! ☀️'},
+  {type:'imageword', img:'imgapp/q_weather_cloudy.png', question:'Look at the image. Which sentence matches this weather?', options:['It\'s sunny','It\'s rainy','It\'s cloudy','It\'s windy'], correct:2, explanation:'"It\'s cloudy" — céu cheio de nuvens! ☁️'},
+  {type:'imageword', img:'imgapp/q_weather_rainy.png', question:'Look at the image. What does "RAINY" mean in Portuguese?', options:['Ventando','Nevando','Nublado','Chovendo'], correct:3, explanation:'"Rainy" = "Chovendo" — não esqueça o guarda-chuva! 🌧️'},
+  {type:'imageword', img:'imgapp/q_weather_snowy.png', question:'Look at the image. What does "SNOWY" mean in Portuguese?', options:['Ensolarado','Nublado','Nevando','Chovendo'], correct:2, explanation:'"Snowy" = "Nevando" — tem neve por todo lado! ❄️'},
+  {type:'imageword', img:'imgapp/q_weather_windy.png', question:'Look at the image. Which sentence matches this weather?', options:['It\'s rainy','It\'s foggy','It\'s snowy','It\'s windy'], correct:3, explanation:'"It\'s windy" — o vento está soprando forte! 💨'},
+  {type:'imageword', img:'imgapp/q_weather_foggy.png', question:'Look at the image. What does "FOGGY" mean in Portuguese?', options:['Ensolarado','Ventando','Nevando','Com neblina'], correct:3, explanation:'"Foggy" = "Com neblina" — não dá para ver longe! 🌫️'},
+  {type:'imageword', img:'imgapp/q_nationality_flags.png', question:'Look at the flags. What is the nationality of someone from the UK?', options:['American','German','British','Australian'], correct:2, explanation:'"British" — pessoas do Reino Unido (UK) são British! 🇬🇧'},
+  {type:'imageword', img:'imgapp/q_sport_football.png', question:'Look at the image. Which phrase is correct for this sport?', options:['Do football','Make football','Go football','Play football'], correct:3, explanation:'"Play football" — futebol usa PLAY! ⚽'},
+  {type:'imageword', img:'imgapp/q_sport_judo.png', question:'Look at the image. Which phrase is correct for this sport?', options:['Play judo','Go judo','Do judo','Make judo'], correct:2, explanation:'"Do judo" — judô usa DO, não PLAY! 🥋'},
+  {type:'imageword', img:'imgapp/q_sport_tabletennis.png', question:'Look at the image. How do you say "jogar tênis de mesa" in English?', options:['Do table tennis','Play table tennis','Go table tennis','Make table tennis'], correct:1, explanation:'"Play table tennis" — tênis de mesa usa PLAY! 🏓'},
 
   // ===== LISTENING — Ouça e escolha a tradução (10 questões) =====
 
