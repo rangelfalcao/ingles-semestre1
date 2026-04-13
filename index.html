@@ -166,6 +166,54 @@
 
   .btn-video { display: none; }
 
+  /* ========== LISTENING ========== */
+  .listening-area {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 22px 16px 16px;
+    background: linear-gradient(135deg, rgba(139,92,246,0.07), rgba(58,141,218,0.07));
+    border: 2px dashed var(--roxo-claro);
+    border-radius: 18px;
+  }
+
+  .btn-listen {
+    background: linear-gradient(135deg, var(--roxo), var(--azul));
+    color: #fff;
+    border: none;
+    padding: 16px 38px;
+    font-size: 1.5em;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(139,92,246,0.45);
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 1px;
+  }
+
+  .btn-listen:hover { transform: scale(1.06); box-shadow: 0 8px 26px rgba(139,92,246,0.6); }
+  .btn-listen:active { transform: scale(0.96); }
+
+  .listen-hint {
+    margin-top: 10px;
+    color: var(--cinza);
+    font-size: 0.84em;
+    font-weight: 600;
+  }
+
+  .badge-listening { background: rgba(240,131,58,0.12); color: var(--laranja); border: 1px solid var(--laranja); }
+
+  /* ========== IMAGE WORD ========== */
+  .img-questao-destaque {
+    width: 100%;
+    max-width: 440px;
+    border-radius: 14px;
+    margin: 0 auto 20px auto;
+    display: block;
+    border: 3px solid var(--borda);
+    box-shadow: 0 4px 16px rgba(58,141,218,0.18);
+  }
+
+  .badge-imageword { background: rgba(59,173,106,0.12); color: var(--verde); border: 1px solid var(--verde); }
+
   .btn-iniciar {
     background: linear-gradient(135deg, var(--roxo), var(--azul));
     color: #fff;
@@ -589,11 +637,6 @@
       <div class="valor">0–10</div>
       <div class="label">Nota</div>
     </div>
-    <div class="card-info">
-      <div class="icon">📚</div>
-      <div class="valor">120</div>
-      <div class="label">Questões no banco</div>
-    </div>
   </div>
 
   <div class="video-chamada">
@@ -848,6 +891,32 @@ const banco = [
   {type:'fillinblank', question:'"What\'s your favourite sport?" → "_____ table tennis!"', answer:"It's", explanation:'"IT\'S table tennis!" — always start with "It\'s"! 🏓'},
   {type:'fillinblank', question:'"What\'s your favourite sport?" → "_____ wheelchair basketball!"', answer:"It's", explanation:'"IT\'S wheelchair basketball!" — always start with "It\'s"! 🏀♿'},
 
+  // ===== LISTENING — Ouça e escolha a tradução (10 questões) =====
+
+  {type:'listening', word:'sunny', question:'Ouça a palavra em inglês e escolha a tradução correta em português:', options:['Nublado','Ensolarado','Chovendo','Ventando'], correct:1, explanation:'"Sunny" = "Ensolarado" — o sol está brilhando! ☀️'},
+  {type:'listening', word:'cloudy', question:'Ouça a palavra em inglês e escolha a tradução correta em português:', options:['Ensolarado','Nevando','Nublado','Chovendo'], correct:2, explanation:'"Cloudy" = "Nublado" — há muitas nuvens no céu! ☁️'},
+  {type:'listening', word:'windy', question:'Ouça a palavra em inglês e escolha a tradução correta em português:', options:['Chovendo','Nevando','Ensolarado','Ventando'], correct:3, explanation:'"Windy" = "Ventando" — o vento está soprando forte! 💨'},
+  {type:'listening', word:'snowy', question:'Ouça a palavra em inglês e escolha a tradução correta em português:', options:['Ventando','Chovendo','Nevando','Ensolarado'], correct:2, explanation:'"Snowy" = "Nevando" — tem neve por todo lado! ❄️'},
+  {type:'listening', word:'Australian', question:'Ouça a palavra em inglês e escolha a tradução correta em português:', options:['Alemão','Britânico','Americano','Australiano'], correct:3, explanation:'"Australian" = "Australiano" — pessoa da Austrália! 🇦🇺'},
+  {type:'listening', word:'British', question:'Ouça a palavra em inglês e escolha a tradução correta em português:', options:['Australiano','Britânico','Americano','Vietnamita'], correct:1, explanation:'"British" = "Britânico" — pessoa do Reino Unido! 🇬🇧'},
+  {type:'listening', word:'playing football', question:'Ouça a frase em inglês e escolha a tradução correta em português:', options:['Jogando vôlei','Andando de bicicleta','Jogando futebol','Ouvindo música'], correct:2, explanation:'"Playing football" = "Jogando futebol"! ⚽'},
+  {type:'listening', word:'riding a bike', question:'Ouça a frase em inglês e escolha a tradução correta em português:', options:['Jogando futebol','Lendo um livro','Andando de bicicleta','Ouvindo música'], correct:2, explanation:'"Riding a bike" = "Andando de bicicleta"! 🚲'},
+  {type:'listening', word:'watching a film', question:'Ouça a frase em inglês e escolha a tradução correta em português:', options:['Jogando videogame','Lendo um livro','Ouvindo música','Assistindo a um filme'], correct:3, explanation:'"Watching a film" = "Assistindo a um filme"! 🎬'},
+  {type:'listening', word:'walking the dog', question:'Ouça a frase em inglês e escolha a tradução correta em português:', options:['Dando banho no cachorro','Alimentando o cachorro','Passeando com o cachorro','Brincando com o cachorro'], correct:2, explanation:'"Walking the dog" = "Passeando com o cachorro"! 🐕'},
+
+  // ===== LOOK & ANSWER — Olhe a imagem e responda (10 questões) =====
+
+  {type:'imageword', img:'imagens/img16.jpeg', question:'Olhe a imagem. Qual destas opções usa "DO" em vez de "PLAY"?', options:['Play football','Play volleyball','Do judo','Play table tennis'], correct:2, explanation:'"Do judo" — judo e ginástica usam "DO", os outros usam "PLAY"! 🥋'},
+  {type:'imageword', img:'imagens/img06.jpeg', question:'Olhe a imagem. O que Lola está fazendo?', options:['Playing football','Reading a book','Riding a bike','Listening to music'], correct:2, explanation:'"Lola is riding a bike" — Lola está andando de bicicleta! 🚲'},
+  {type:'imageword', img:'imagens/img17.jpeg', question:'Olhe a imagem. O que Olivia e seus amigos estão fazendo?', options:['Playing football','Watching a film','Reading books','Playing video games'], correct:3, explanation:'"They\'re playing video games" — Olivia e seus amigos estão jogando videogame! 🎮'},
+  {type:'imageword', img:'imagens/img19.jpeg', question:'Olhe a imagem. Qual é o esporte favorito do personagem?', options:['Football','Table tennis','Volleyball','Wheelchair basketball'], correct:3, explanation:'"Wheelchair basketball" é o esporte favorito! 🏀♿'},
+  {type:'imageword', img:'imagens/img11.jpeg', question:'Olhe a imagem. Qual atividade do recreio é mostrada na primeira foto (canto superior esquerdo)?', options:['Play tag','Play clapping games','Play hopscotch','Play phone games'], correct:2, explanation:'"Play hopscotch" — amarelinha é a primeira atividade mostrada! 🏃'},
+  {type:'imageword', img:'imagens/img18.jpeg', question:'Olhe a imagem. Qual atividade de lazer o primeiro robô está mostrando?', options:['Ride a bike','Play video games','Listen to music','Read a book'], correct:2, explanation:'"Listen to music" — o primeiro robô está ouvindo música! 🎵'},
+  {type:'imageword', img:'imagens/img12.jpeg', question:'Olhe a imagem. O que o robô está fazendo na imagem "b"?', options:['Listening to music','Riding a bike','Playing video games','Walking the dog'], correct:1, explanation:'"Riding a bike" — o robô na imagem b está andando de bicicleta! 🚲'},
+  {type:'imageword', img:'imagens/img08.jpeg', question:'Olhe o cartoon. O que Ben diz sobre o tempo?', options:['It\'s sunny','It\'s rainy','It\'s windy and cold','It\'s foggy'], correct:2, explanation:'"It\'s windy and cold!" — é isso que Ben diz no cartoon! 💨🥶'},
+  {type:'imageword', img:'imagens/img09.jpeg', question:'Olhe a imagem. O que as crianças estão fazendo?', options:['Playing volleyball','Playing basketball','Playing football','Riding bikes'], correct:2, explanation:'As crianças estão jogando futebol! ⚽'},
+  {type:'imageword', img:'imagens/img13.jpeg', question:'Olhe a imagem. O que a mensagem "WINNING IS GOOD, BUT LOSING IS PART OF THE GAME TOO" nos ensina?', options:['Sempre ganhe','Nunca jogue se puder perder','Seja um bom perdedor e jogue limpo','Só bons jogadores perdem'], correct:2, explanation:'"Be a good loser and play fair" — ganhar é ótimo, mas perder faz parte do jogo! 🤝'},
+
 ];
 
 // ============================================================
@@ -859,6 +928,16 @@ var questaoAtual = 0;
 var timeRemaining = 60 * 60;
 var timerInterval = null;
 var quizIniciado = false;
+
+function falarPalavra(texto) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  var utt = new SpeechSynthesisUtterance(texto);
+  utt.lang = 'en-US';
+  utt.rate = 0.78;
+  utt.pitch = 1.05;
+  window.speechSynthesis.speak(utt);
+}
 
 function shuffleArray(arr) {
   var a = arr.slice();
@@ -913,6 +992,8 @@ function renderizarQuestao() {
   document.getElementById('progresso-texto').textContent = respondidas + ' / 30';
 
   var tipoLabel = q.type === 'multiple' ? 'Múltipla Escolha' :
+                  q.type === 'listening' ? '🔊 Listening' :
+                  q.type === 'imageword' ? '🖼️ Look & Answer' :
                   q.type === 'truefalse' ? 'Verdadeiro / Falso' : 'Complete a Frase';
   var badgeClass = 'badge-' + q.type;
 
@@ -922,7 +1003,7 @@ function renderizarQuestao() {
 
   var textoEl = document.getElementById('texto-questao');
   var imgHtml = '';
-  if (q.img) {
+  if (q.img && q.type !== 'imageword') {
     imgHtml = '<img src="' + q.img + '" class="img-questao" alt="Imagem da questão">';
   }
   textoEl.innerHTML = imgHtml + q.question;
@@ -934,8 +1015,24 @@ function renderizarQuestao() {
 
   var respondeu = respostas[questaoAtual] !== null;
 
-  if (q.type === 'multiple') {
-    var html = '<div class="opcoes">';
+  if (q.type === 'multiple' || q.type === 'listening' || q.type === 'imageword') {
+    var html = '';
+
+    if (q.type === 'listening') {
+      var wordEscaped = (q.word || '').replace(/'/g, "\\'");
+      html += '<div class="listening-area">' +
+        '<button class="btn-listen" onclick="falarPalavra(\'' + wordEscaped + '\')">' +
+        '🔊 Ouvir a palavra' +
+        '</button>' +
+        '<p class="listen-hint">Aperte o botão para ouvir a palavra em inglês, depois escolha a tradução!</p>' +
+        '</div>';
+    }
+
+    if (q.type === 'imageword' && q.img) {
+      html += '<img src="' + q.img + '" class="img-questao-destaque" alt="Imagem da questão">';
+    }
+
+    html += '<div class="opcoes">';
     var letras = ['A', 'B', 'C', 'D'];
     q.options.forEach(function(op, i) {
       var cls = 'opcao-btn';
@@ -1059,7 +1156,7 @@ function mostrarResultado() {
   questoesSorteadas.forEach(function(q, i) {
     var resp = respostas[i];
     if (resp === null) return;
-    if (q.type === 'multiple' && resp === q.correct) certas++;
+    if ((q.type === 'multiple' || q.type === 'listening' || q.type === 'imageword') && resp === q.correct) certas++;
     else if (q.type === 'truefalse' && resp === q.correct) certas++;
     else if (q.type === 'fillinblank' && resp === '__correct__') certas++;
   });
