@@ -1112,7 +1112,7 @@ function mostrarFeedback(q) {
   var resp = respostas[questaoAtual];
   var acertou;
 
-  if (q.type === 'multiple') acertou = resp === q.correct;
+  if (q.type === 'multiple' || q.type === 'listening' || q.type === 'imageword') acertou = resp === q.correct;
   else if (q.type === 'truefalse') acertou = resp === q.correct;
   else acertou = resp === '__correct__';
 
